@@ -51,10 +51,11 @@ interface TimelineItem {
   type: 'education' | 'certification';
 }
 
-interface FormData {
+interface ContactFormData {
   user_name: string;
   user_email: string;
   message: string;
+  [key: string]: string;
 }
 
 interface FormErrors {
@@ -82,7 +83,7 @@ const Portfolio: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
   const [skillsLoaded, setSkillsLoaded] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'technical' | 'soft'>('technical');
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     user_name: '',
     user_email: '',
     message: ''
@@ -288,7 +289,7 @@ const Portfolio: React.FC = () => {
     emailjs.send(
       `${import.meta.env.VITE_EMAILJS_SERVICE_ID}`,
       `${import.meta.env.VITE_EMAILJS_TEMPLATE_ID}`,
-      formData,
+      formData as Record<string, unknown>,
       {
         publicKey: `${import.meta.env.VITE_EMAILJS_PUBLIC_KEY}`,
       }
