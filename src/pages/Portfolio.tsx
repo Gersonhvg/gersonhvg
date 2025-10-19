@@ -12,22 +12,85 @@ import {
 } from 'lucide-react';
 import avatar from '../assets/images/Avatar_file.png';
 
-const Portfolio = () => {
-  const [darkMode, setDarkMode] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [typedText, setTypedText] = useState('');
-  const [activeSection, setActiveSection] = useState('home');
-  const [skillsLoaded, setSkillsLoaded] = useState(false);
-  const [activeTab, setActiveTab] = useState('technical');
-  const [formData, setFormData] = useState({
+// Interfaces
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+interface SkillItem {
+  name: string;
+  level: number;
+}
+
+interface SkillCategory {
+  title: string;
+  icon: JSX.Element;
+  color: string;
+  items: SkillItem[];
+}
+
+interface Skills {
+  [key: string]: SkillCategory;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  features: string[];
+  github: string;
+  demo: string;
+}
+
+interface TimelineItem {
+  year: string;
+  title: string;
+  institution: string;
+  type: 'education' | 'certification';
+}
+
+interface FormData {
+  user_name: string;
+  user_email: string;
+  message: string;
+}
+
+interface FormErrors {
+  user_name?: string;
+  user_email?: string;
+  message?: string;
+}
+
+interface Snackbar {
+  message: string;
+  type: 'success' | 'error' | '';
+  visible: boolean;
+}
+
+interface SoftSkill {
+  title: string;
+  icon: JSX.Element;
+  description: string;
+}
+
+const Portfolio: React.FC = () => {
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [typedText, setTypedText] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>('home');
+  const [skillsLoaded, setSkillsLoaded] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'technical' | 'soft'>('technical');
+  const [formData, setFormData] = useState<FormData>({
     user_name: '',
     user_email: '',
     message: ''
   });
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const [snackbar, setSnackbar] = useState<{ message: string; type: 'success' | 'error' | ''; visible: boolean }>({
+  const [snackbar, setSnackbar] = useState<Snackbar>({
     message: '',
     type: '',
     visible: false,
@@ -49,8 +112,8 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const handleScroll = (): void => {
+      const sections: string[] = ['home', 'about', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -74,11 +137,11 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [skillsLoaded]);
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = (): void => {
     setDarkMode(!darkMode);
   };
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { id: 'home', label: 'Inicio' },
     { id: 'about', label: 'Sobre Mí' },
     { id: 'skills', label: 'Habilidades' },
@@ -86,7 +149,7 @@ const Portfolio = () => {
     { id: 'contact', label: 'Contacto' }
   ];
 
-  const skills = {
+  const skills: Skills = {
     backend: {
       title: 'Development',
       icon: <Server className="w-6 h-6" />,
@@ -127,12 +190,12 @@ const Portfolio = () => {
     }
   };
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: 'API REST E-commerce',
       description: 'Sistema completo de gestión de productos, usuarios y pedidos con autenticación JWT y roles.',
       image: '/api/placeholder/400/250',
-      technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT',],
+      technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT'],
       features: ['Autenticación y autorización', 'CRUD completo', 'Paginación y filtros', 'Tests unitarios'],
       github: 'https://github.com',
       demo: 'https://github.com'
@@ -157,8 +220,7 @@ const Portfolio = () => {
     }
   ];
 
-
-  const timeline = [
+  const timeline: TimelineItem[] = [
     {
       year: '2024',
       title: 'Bachiller en Computación y Sistemas',
@@ -173,7 +235,7 @@ const Portfolio = () => {
     }
   ];
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
       const offset = 80;
@@ -188,8 +250,8 @@ const Portfolio = () => {
     setIsMenuOpen(false);
   };
 
-  const validateForm = () => {
-    const errors = {}
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
 
     if (!formData.user_name.trim()) {
       errors.user_name = 'El nombre es requerido';
@@ -214,7 +276,7 @@ const Portfolio = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -223,9 +285,14 @@ const Portfolio = () => {
 
     setIsSubmitting(true);
 
-    emailjs.send(`${import.meta.env.VITE_EMAILJS_SERVICE_ID}`, `${import.meta.env.VITE_EMAILJS_TEMPLATE_ID}`, formData, {
-      publicKey: `${import.meta.env.VITE_EMAILJS_PUBLIC_KEY}`,
-    })
+    emailjs.send(
+      `${import.meta.env.VITE_EMAILJS_SERVICE_ID}`,
+      `${import.meta.env.VITE_EMAILJS_TEMPLATE_ID}`,
+      formData,
+      {
+        publicKey: `${import.meta.env.VITE_EMAILJS_PUBLIC_KEY}`,
+      }
+    )
       .then((response) => {
         console.log('Email enviado exitosamente:', response);
         setFormData({ user_name: '', user_email: '', message: '' });
@@ -245,18 +312,16 @@ const Portfolio = () => {
           setSnackbar({ message: '', type: '', visible: false });
         }, 6000);
       });
-
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
 
-    // Limpiar error del campo cuando el usuario empieza a escribir
-    if (formErrors[name]) {
+    if (formErrors[name as keyof FormErrors]) {
       setFormErrors(prev => ({
         ...prev,
         [name]: ''
@@ -264,7 +329,7 @@ const Portfolio = () => {
     }
   };
 
-  const handleDownloadCV = async () => {
+  const handleDownloadCV = async (): Promise<void> => {
     const fileId = '1zDNYG0DPwvzGi72NLarnpM_hiRkGF92O';
     const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
 
@@ -273,6 +338,15 @@ const Portfolio = () => {
     link.download = 'CV-Gerson-Vasquez.pdf';
     link.click();
   };
+
+  const softSkills: SoftSkill[] = [
+    { title: 'Compromiso', icon: <Target />, description: 'Dedicación constante para cumplir objetivos' },
+    { title: 'Responsabilidad', icon: <CheckCircle />, description: 'Cumplimiento de entregables propuestos' },
+    { title: 'Resolución de Problemas', icon: <Zap />, description: 'Enfoque lógico para identificar y superar desafíos técnicos' },
+    { title: 'Trabajo en Equipo', icon: <Users />, description: 'Colaboración en proyectos con equipos multidisciplinarios' },
+    { title: 'Adaptabilidad', icon: <Activity />, description: 'Flexibilidad ante cambios y nuevos desafíos' },
+    { title: 'Curiosidad', icon: <Search />, description: 'Interés constante por aprender y mejorar habilidades en nuevas áreas' }
+  ];
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-950 text-white' : 'bg-gray-200 text-gray-900'}`}>
@@ -342,13 +416,6 @@ const Portfolio = () => {
 
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-0">
-      {/* Background Pattern - Hidden on mobile 
-        <div className="absolute inset-0 opacity-10 hidden sm:block">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-      */}
         <div className="absolute inset-0 hidden sm:block">
           <div
             className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(0,0,0,0.04)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(0,0,0,0.05)_1px,_transparent_1px)] 
@@ -365,7 +432,7 @@ const Portfolio = () => {
                 </span>
                 <span className="animate-pulse text-gray-300">_</span>
               </h1>
-              <p className={`"text-lg sm:text-xl ${darkMode ? 'text-gray-300' : 'text-gray-700'} leading-relaxed max-w-xl mx-auto md:mx-0"`}>
+              <p className={`text-lg sm:text-xl ${darkMode ? 'text-gray-300' : 'text-gray-700'} leading-relaxed max-w-xl mx-auto md:mx-0`}>
                 Profesional con pasión por crear sistemas escalables, eficientes y aplicando buenas practicas. Especializado en apis y microservicios.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -394,7 +461,6 @@ const Portfolio = () => {
 
             <div className="relative hidden md:block">
               <div className="w-80 h-80 mx-auto relative">
-
                 <div className={`absolute inset-0 ${darkMode ? 'bg-blue-600 opacity-20' : 'bg-blue-800 opacity-30'}  rounded-full blur-3xl  animate-pulse`}></div>
                 <div className={`relative w-full h-full rounded-full overflow-hidden border-2 ${darkMode ? 'border-slate-700' : 'border-indigo-100'}`}>
                   <div className={`w-full h-full ${darkMode ? 'bg-slate-900' : 'bg-slate-100'} flex items-center justify-center`}>
@@ -409,7 +475,6 @@ const Portfolio = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -583,14 +648,7 @@ const Portfolio = () => {
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {[
-                { title: 'Compromiso', icon: <Target />, description: 'Dedicación constante para cumplir objetivos' },
-                { title: 'Responsabilidad', icon: <CheckCircle />, description: 'Cumplimiento de entregables propuestos' },
-                { title: 'Resolución de Problemas', icon: <Zap />, description: 'Enfoque lógico para identificar y superar desafíos técnicos' },
-                { title: 'Trabajo en Equipo', icon: <Users />, description: 'Colaboración en proyectos con equipos multidisciplinarios' },
-                { title: 'Adaptabilidad', icon: <Activity />, description: 'Flexibilidad ante cambios y nuevos desafíos' },
-                { title: 'Curiosidad', icon: <Search />, description: 'Interés constante por aprender y mejorar habilidades en nuevas áreas' }
-              ].map((skill, index) => (
+              {softSkills.map((skill, index) => (
                 <div key={index} className={`${darkMode ? 'bg-gray-900' : 'bg-white'}  rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg text-white">
@@ -664,7 +722,6 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
 
       {/* Contact Section */}
       <section id="contact" className="py-16 sm:py-20">
@@ -769,8 +826,6 @@ const Portfolio = () => {
                     </p>
                   )}
                 </div>
-
-
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
