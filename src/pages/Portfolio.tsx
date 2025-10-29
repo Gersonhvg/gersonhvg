@@ -11,7 +11,7 @@ import {
   Search
 } from 'lucide-react';
 import avatar from '../assets/images/Avatar_file.png';
-
+import vq from '../assets/images/vq.png';
 // Interfaces
 interface NavItem {
   id: string;
@@ -193,13 +193,13 @@ const Portfolio: React.FC = () => {
 
   const projects: Project[] = [
     {
-      title: 'API REST E-commerce',
-      description: 'Sistema completo de gestión de productos, usuarios y pedidos con autenticación JWT y roles.',
-      image: '/api/placeholder/400/250',
-      technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT'],
-      features: ['Autenticación y autorización', 'CRUD completo', 'Paginación y filtros', 'Tests unitarios'],
-      github: 'https://github.com',
-      demo: 'https://github.com'
+      title: 'Voice Quiz App',
+      description: 'Sistema de generación de cuestionarios con transcripcion de voz e inteligencia artificial.',
+      image: vq,
+      technologies: ['Vite', 'Flask', 'Supabase', 'React', 'OAuth', 'Postgres', 'Postgres', 'Together Ai'],
+      features: ['Autenticación y autorización', 'CRUD preguntas', 'Grabacion de audio', 'Crear cuestionarios'],
+      github: 'https://voice-quiz-app.vercel.app/',
+      demo: 'https://voice-quiz-app.vercel.app/'
     },
     {
       title: 'Microservicio de Notificaciones',
@@ -350,7 +350,7 @@ const Portfolio: React.FC = () => {
   ];
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-950 text-white' : 'bg-gray-200 text-gray-900'}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-950 text-white' : 'bg-gray-100 text-gray-900'}`}>
       {/* Header Navigation */}
       <header className={`fixed top-0 w-full z-50 backdrop-blur-md ${darkMode ? 'bg-gray-900/70 border-gray-800' : 'bg-white border-gray-200'} border-b`}>
         <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
@@ -419,7 +419,7 @@ const Portfolio: React.FC = () => {
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-0">
         <div className="absolute inset-0 hidden sm:block">
           <div
-            className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(0,0,0,0.04)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(0,0,0,0.05)_1px,_transparent_1px)] 
+            className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(0,0,0,0.07)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(0,0,0,0.07)_1px,_transparent_1px)] 
                       bg-[size:40px_40px] 
                       dark:bg-[linear-gradient(to_right,_rgba(255,255,255,0.075)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.05)_1px,_transparent_1px)]"
           ></div>
@@ -678,17 +678,29 @@ const Portfolio: React.FC = () => {
             {projects.map((project, index) => (
               <div key={index} className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-xl overflow-hidden shadow-2xl`}>
                 <div className="relative overflow-hidden h-40 bg-gradient-to-br from-blue-500/20 to-green-500/20">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Code2 className="w-24 h-24 text-blue-500/30" />
+                  <div className="absolute inset-0 flex items-center justify-center ">
+                    <Code2 className="w-24 h-24 text-blue-500/30" /> 
+                    {/*<img src={project.image} alt="Image" className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"/>*/}
                   </div>
-                  <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <a href={project.github} className="p-3 bg-white/20 backdrop-blur rounded-lg hover:bg-white/30 transition-all duration-300">
-                      <GitBranch className="w-6 h-6 text-white" />
-                    </a>
-                    <a href={project.demo} className="p-3 bg-white/20 backdrop-blur rounded-lg hover:bg-white/30 transition-all duration-300">
+                  <div className="absolute inset-0 bg-black/25 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 bg-white/20 backdrop-blur rounded-lg hover:bg-white/30 transition-all duration-300"
+                      >
+                        <GitBranch className="w-6 h-6 text-white" />
+                      </a>
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-white/20 backdrop-blur rounded-lg hover:bg-white/30 transition-all duration-300"
+                    >
                       <ExternalLink className="w-6 h-6 text-white" />
                     </a>
                   </div>
+
                 </div>
 
                 <div className="p-6 space-y-4 ">
