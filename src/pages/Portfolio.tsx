@@ -144,7 +144,7 @@ const Portfolio: React.FC = () => {
 
   const navItems: NavItem[] = [
     { id: 'home', label: 'Inicio' },
-    { id: 'about', label: 'Sobre Mí' },
+    { id: 'about', label: 'Información' },
     { id: 'skills', label: 'Habilidades' },
     { id: 'projects', label: 'Proyectos' },
     { id: 'contact', label: 'Contacto' }
@@ -196,7 +196,7 @@ const Portfolio: React.FC = () => {
       title: 'Voice Quiz App',
       description: 'Sistema de generación de cuestionarios con transcripcion de voz e inteligencia artificial.',
       image: vq,
-      technologies: ['Vite', 'Flask', 'Supabase', 'React', 'OAuth', 'Postgres', 'Postgres', 'Together Ai'],
+      technologies: ['Vite', 'Flask', 'Supabase', 'React', 'OAuth', 'Postgres', 'Together AI'],
       features: ['Autenticación y autorización', 'CRUD preguntas', 'Grabacion de audio', 'Crear cuestionarios'],
       github: 'https://voice-quiz-app.vercel.app/',
       demo: 'https://voice-quiz-app.vercel.app/'
@@ -485,7 +485,7 @@ const Portfolio: React.FC = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-12">
             <span className="text-blue-500">
-              Sobre Mí
+              Información
             </span>
           </h2>
 
