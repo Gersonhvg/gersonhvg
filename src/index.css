@@ -2,67 +2,177 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('./assets/fonts/Roboto-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: light;
-  font-display: swap;
-}
+/* ==========================
+   INTER
+========================== */
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('./assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Medium.ttf") format("truetype");
   font-weight: 500;
-  font-style: medium;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('./assets/fonts/roboto/Roboto-SemiBold.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-SemiBold.ttf") format("truetype");
   font-weight: 600;
-  font-style: bold;
+  font-style: normal;
   font-display: swap;
 }
-
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('../assets/fonts/Roboto-Bold.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Bold.ttf") format("truetype");
   font-weight: 700;
-  font-style: extrabold;
+  font-style: normal;
   font-display: swap;
 }
 
-body, html {
-  font-family: 'Roboto', system-ui, Helvetica, Arial, sans-serif;
-  font-size: 16px; /* 1rem = 16px */
+/* ==========================
+   SPACE GROTESK
+========================== */
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/static/SpaceGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-::-webkit-scrollbar {
-  width: 6px; 
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/static/SpaceGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-::-webkit-scrollbar-track {
-  background: #6b7280; 
-  border-radius: 10px; 
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/static/SpaceGrotesk-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #3b82f6; 
-  border-radius: 10px; 
-  transition: all 0.3s ease; 
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/static/SpaceGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #2563eb; 
+/* ==========================
+   JETBRAINS MONO
+========================== */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./assets/fonts/JetBrains_Mono/static/JetBrainsMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./assets/fonts/JetBrains_Mono/static/JetBrainsMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./assets/fonts/JetBrains_Mono/static/JetBrainsMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+
+:root {
+  /* Fondos: Minimalismo puro. Un gris-blanco de estudio fotográfico */
+  --color-bg: #f6f7f8;         
+  --color-surface: #ffffff;    /* Tarjetas y Navbar en blanco puro para máxima limpieza */
+  
+  /* Textos: Negro tinta profundo y gris sofisticado */
+  --color-text: #0f1419;       /* Un negro nítido que hace brillar a la fuente Inter */
+  --color-text-muted: #536471; /* Gris medio, perfecto para subtítulos legibles */
+
+  /* Identidad: El Amarillo se convierte en un Oro Elegante */
+  --color-primary: #e0a016;       /* Amarillo ocre/oro con excelente contraste en blanco */
+  --color-primary-light: #e5a92c; /* Versión luminosa para hovers */
+  --color-secondary: #171f26;     /* Negro carbón para botones secundarios */
+  --color-accent: #f2bf5e;        /* Tu amarillo original para detalles brillantes  */
+
+  --color-border: rgba(13, 18, 22, 0.12);
+  --color-shadow: rgba(15, 20, 25, 0.04);
+
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+}
+
+[data-theme="dark"] {
+  /* Fondos: Negro obsidiana profundo (no es negro puro plano, tiene profundidad) */
+  --color-bg: #0d0e12;         
+  --color-surface: #14161d;    /* Tarjetas que se elevan elegantemente del fondo */
+  
+  /* Textos: Blanco lino que no lastima la vista */
+  --color-text: #f7f9fa;       
+  --color-text-muted: #8b98a5; /* Gris claro editorial */
+
+  /* Identidad en la noche: El Amarillo Neón/Cyberpunk */
+  --color-primary: #f2bf5e;       /* Tu amarillo base brilla al máximo en la oscuridad */
+  --color-primary-light: #f4cb76; /* Hover más brillante */
+  --color-secondary: #ffffff;     
+  --color-accent: #e5a92c;        
+
+  --color-border: rgba(247, 249, 250, 0.10);
+  --color-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* =========================
+   ESTILOS BASE
+========================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+pre {
+  font-family: var(--font-code);
 }
