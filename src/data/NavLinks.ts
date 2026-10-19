@@ -1,6 +1,5 @@
 import {
   Home,
-  User,
   Folder,
   CodeXml,
   BriefcaseBusiness,
@@ -12,11 +11,6 @@ const navLinks = [
     id: "inicio",
     label: "Inicio",
     icon: Home,
-  },
-  {
-    id: "sobre-mi",
-    label: "Sobre mí",
-    icon: User,
   },
   {
     id: "proyectos",

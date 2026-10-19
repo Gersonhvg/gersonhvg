@@ -107,45 +107,53 @@
 ========================= */
 
 :root {
-  /* Fondos: Minimalismo puro. Un gris-blanco de estudio fotográfico */
-  --color-bg: #f6f7f8;         
-  --color-surface: #ffffff;    /* Tarjetas y Navbar en blanco puro para máxima limpieza */
+  /* Fondos*/
+  --color-bg: #f1f2f7;  
+  --color-surface: #ffffff; 
   
-  /* Textos: Negro tinta profundo y gris sofisticado */
-  --color-text: #0f1419;       /* Un negro nítido que hace brillar a la fuente Inter */
-  --color-text-muted: #536471; /* Gris medio, perfecto para subtítulos legibles */
+  /* Textos*/
+  --color-text: #0f1419;  
+  --color-text-muted: #536471;
 
-  /* Identidad: El Amarillo se convierte en un Oro Elegante */
-  --color-primary: #e0a016;       /* Amarillo ocre/oro con excelente contraste en blanco */
+  /* Identidad*/
+  --color-primary: #e0a016; 
   --color-primary-light: #e5a92c; /* Versión luminosa para hovers */
-  --color-secondary: #171f26;     /* Negro carbón para botones secundarios */
-  --color-accent: #f2bf5e;        /* Tu amarillo original para detalles brillantes  */
+  --color-border: rgba(13, 18, 22, 0.12); 
+  --color-shadow: rgba(15, 20, 25, 0.08);
 
-  --color-border: rgba(13, 18, 22, 0.12);
-  --color-shadow: rgba(15, 20, 25, 0.04);
+    /* Sombras del imagen */
+  --hero-shadow: rgba(15, 20, 25, 0.18);
+  --hero-shadow-soft: rgba(15, 20, 25, 0.08);
 
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* Resplandor */
+  --hero-glow: rgba(224, 160, 22, 0.08);
+  --font-heading: "Space Grotesk", sans-serif; /* OK */ 
+  --font-body: "Inter", sans-serif; /* OK */ 
   --font-code: "JetBrains Mono", monospace;
 }
 
 [data-theme="dark"] {
-  /* Fondos: Negro obsidiana profundo (no es negro puro plano, tiene profundidad) */
-  --color-bg: #0d0e12;         
-  --color-surface: #14161d;    /* Tarjetas que se elevan elegantemente del fondo */
+  /* Fondos*/
+  --color-bg: #0d0e12;      
+  --color-surface: #171920;
   
-  /* Textos: Blanco lino que no lastima la vista */
-  --color-text: #f7f9fa;       
-  --color-text-muted: #8b98a5; /* Gris claro editorial */
+  /* Textos*/
+  --color-text: #f7f9fa; 
+  --color-text-muted: #8b98a5;
 
-  /* Identidad en la noche: El Amarillo Neón/Cyberpunk */
-  --color-primary: #f2bf5e;       /* Tu amarillo base brilla al máximo en la oscuridad */
-  --color-primary-light: #f4cb76; /* Hover más brillante */
-  --color-secondary: #ffffff;     
-  --color-accent: #e5a92c;        
+  /* Identidad tono oscuro*/
+  --color-primary: #f2bf5e; 
+  --color-primary-light: #f4cb76;    
 
-  --color-border: rgba(247, 249, 250, 0.10);
-  --color-shadow: rgba(0, 0, 0, 0.5);
+  /* Sombras del imagen*/
+  --hero-shadow: rgba(0, 0, 0, 0.55);
+
+  /* Resplandor*/
+  --hero-glow: rgba(242, 191, 94, 0.32);
+  /* Segundo resplandor*/
+  --hero-glow-soft: rgba(229, 169, 44, 0.16);
+  --color-border: rgba(247, 249, 250, 0.10); /* OK */ 
+  --color-shadow: rgba(137, 116, 76, 0.244); /* OK */ 
 }
 
 /* =========================
@@ -154,13 +162,18 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   margin: 0;
   background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
 }
 
 h1,
@@ -175,4 +188,158 @@ h6 {
 code,
 pre {
   font-family: var(--font-code);
+}
+
+/* Seccion Intro */
+.hero-image-light {  
+  display: block;
+    filter:
+      drop-shadow(0 12px 18px var(--hero-shadow))
+      drop-shadow(0 4px 8px var(--hero-shadow-soft));
+}
+
+.hero-image-dark {
+  display: none;
+    filter:
+      /* Profundidad debajo de los objetos */
+      drop-shadow(0 14px 22px var(--hero-shadow))
+
+      /* Resplandor amarillo cercano */
+      drop-shadow(0 0 16px var(--hero-glow))
+
+      /* Halo amarillo más amplio */
+      drop-shadow(0 0 32px var(--hero-glow-soft));
+}
+
+[data-theme="dark"] .hero-image-light { /* OK */
+  display: none;
+}
+
+[data-theme="dark"] .hero-image-dark { /* OK */
+  display: block;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+    filter: blur(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+.hero-hello {
+  animation: hero-fade-up 0.65s ease-out both;
+}
+.hero-title {
+  animation: hero-fade-up 0.8s ease-out 0.1s both;
+}
+.hero-subtitle { 
+  animation: hero-fade-right 0.8s ease-out 0.25s both;
+}
+.hero-description {
+  animation: hero-fade-up 0.8s ease-out 0.4s both;
+}
+.hero-actions {
+  animation: hero-fade-up 0.8s ease-out 0.55s both;
+}
+.hero-stats {
+  animation: hero-fade-up 0.8s ease-out 0.7s both;
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .hero-hello,
+  .hero-title,
+  .hero-subtitle,
+  .hero-description,
+  .hero-actions,
+  .hero-stats {
+    animation: none;
+  }
+}
+
+/*animacion de imagen*/
+@keyframes hero-image-enter {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.97);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.hero-visual {
+  animation: hero-image-enter 1s ease-out 0.3s both;
+}
+
+/* section technologies carrusel pause cursor */
+.technology-marquee {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.technology-track {
+  animation: technology-scroll 30s linear infinite;
+}
+
+.technology-marquee:hover .technology-track {
+  animation-play-state: paused;
+}
+
+@keyframes technology-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technology-track {
+    animation: none;
+  }
+  .technology-marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
 }

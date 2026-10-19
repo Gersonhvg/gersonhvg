@@ -1,25 +1,722 @@
-import React from 'react'
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  SearchX,
+} from "lucide-react";
+import { useEffect } from "react";
+
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 const NotFound = () => {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 via-gray-900 to-blue-950 text-white px-6">
-      <h1 className="text-6xl font-extrabold mb-4 bg-gradient-to-r from-slate-500 to-teal-600 bg-clip-text text-transparent">
-        404
-      </h1>
-      <h2 className="text-2xl sm:text-3xl font-bold mb-2">
-        Página no encontrada
-      </h2>
-      <p className="mb-8 text-lg text-gray-300 text-center max-w-md">
-        Puedes volver al inicio y segir explorando el portafolio.
-      </p>
-      <a
-        href="/"
-        className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-slate-500 to-teal-600 text-white font-semibold shadow-lg hover:scale-105 transition-transform"
-      >
-        Volver al Inicio
-      </a>
-    </div>
-  )
-}
+ 
+  const navigate = useNavigate();
 
-export default NotFound
+    /*
+    Permite recuperar el tema cuando el usuario entra
+    directamente en una ruta inexistente y Navbar
+    no llega a renderizarse.
+  */
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    const initialTheme =
+      savedTheme === "dark" ? "dark" : "light";
+
+    document.documentElement.setAttribute(
+      "data-theme",
+      initialTheme
+    );
+  }, []);
+
+  const handleGoBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate("/");
+  };
+
+  return (
+    <main
+      className="
+       not-found-page
+        relative
+
+        h-screen
+        
+
+        overflow-hidden
+
+        bg-[var(--color-bg)]
+        text-[var(--color-text)]
+      "
+    >
+      {/* =========================
+          FONDO
+      ========================== */}
+      <div
+        aria-hidden="true"
+        className="
+          not-found-grid
+
+          pointer-events-none
+
+          absolute
+          inset-0
+        "
+      />
+
+      {/* =========================
+          CONTENEDOR
+      ========================== */}
+      <div
+        className="
+          relative
+          z-10
+
+          mx-auto
+
+          flex
+          h-full
+         
+          flex-col
+
+          px-4
+
+          sm:px-6
+
+          lg:px-10
+        "
+      >
+        {/* =========================
+            HEADER
+        ========================== */}
+        <header
+          className="
+            flex
+            h-16
+            shrink-0
+            items-center
+            justify-between
+            gap-4
+
+            border-b
+            border-[var(--color-border)]
+          "
+        >
+          {/* Logo */}
+          <Link
+            to="/"
+            aria-label="Volver al inicio"
+            className="
+              inline-flex
+              items-center
+
+              font-heading
+              text-2xl
+              font-semibold
+
+              text-[var(--color-text)]
+
+              transition-colors
+              duration-300
+
+              hover:text-[var(--color-primary)]
+
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-[var(--color-primary)]
+            "
+          >
+            <ChevronLeft
+              size={28}
+              aria-hidden="true"
+              className="
+                text-[var(--color-primary)]
+              "
+            />
+
+            GV
+
+            <span
+              className="
+                -translate-y-[2px]
+
+                text-[var(--color-primary)]
+              "
+            >
+              /
+            </span>
+
+            <ChevronRight
+              size={28}
+              aria-hidden="true"
+              className="
+                text-[var(--color-primary)]
+              "
+            />
+          </Link>
+
+          {/* Estado */}
+          <span
+            className="
+              rounded-full
+
+              border
+              border-[var(--color-border)]
+
+              bg-[var(--color-surface)]
+
+              px-3
+              py-1.5
+
+              font-code
+              text-xs
+              font-medium
+
+              text-[var(--color-text-muted)]
+            "
+          >
+            ERROR 404
+          </span>
+        </header>
+
+        {/* =========================
+            CONTENIDO
+        ========================== */}
+        <section
+          aria-labelledby="not-found-title"
+          className="
+            grid
+           
+            flex-1
+            grid-cols-1
+            content-center
+            p-4
+
+            gap-8
+           
+
+          
+            sm:py-4
+            
+            md:gap-12
+            
+        
+            md:content-center
+
+            lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]
+            lg:items-center
+            lg:gap-12
+         
+          "
+        >
+          {/* =========================
+              VENTANA 404
+
+              Móvil: primero
+              Tablet: primero
+              Desktop: derecha
+          ========================== */}
+          <div
+            aria-hidden="true"
+            className="
+              relative
+
+              order-1
+
+              mx-auto
+              w-full
+             
+              
+
+              md:max-w-2xl
+
+              lg:order-2
+              lg:max-w-xl
+              lg:justify-self-end
+            "
+          >
+            {/* Ventana */}
+            <div
+              className="
+                not-found-panel
+
+                relative
+
+                overflow-hidden
+
+                rounded-2xl
+
+                border
+                border-[var(--color-border)]
+
+                bg-[var(--color-surface)]
+
+                sm:rounded-3xl
+              "
+            >
+              {/* =========================
+                  BARRA SUPERIOR
+              ========================== */}
+              <div
+                className="
+                  flex
+                  h-10
+                  items-center
+                  justify-between
+
+                  border-b
+                  border-[var(--color-border)]
+
+                  px-4
+
+                  sm:h-12
+                  sm:px-5
+
+                  lg:h-14
+                "
+              >
+                {/* Controles */}
+                <div className="flex items-center gap-2">
+                  <span
+                    className="
+                      h-2
+                      w-2
+
+                      rounded-full
+
+                      bg-[var(--color-primary)]
+
+                      sm:h-2.5
+                      sm:w-2.5
+                    "
+                  />
+
+                  <span
+                    className="
+                      h-2
+                      w-2
+
+                      rounded-full
+
+                      bg-[var(--color-text-muted)]
+
+                      sm:h-2.5
+                      sm:w-2.5
+                    "
+                  />
+
+                  <span
+                    className="
+                      h-2
+                      w-2
+
+                      rounded-full
+
+                      bg-[var(--color-border)]
+
+                      sm:h-2.5
+                      sm:w-2.5
+                    "
+                  />
+                </div>
+              </div>
+
+              {/* =========================
+                  INTERIOR
+              ========================== */}
+              <div
+                className="
+                  not-found-code
+
+                  relative
+
+                  flex
+                  h-36
+                  items-center
+                  justify-center
+                  gap-5
+
+                  overflow-hidden
+
+                  px-3
+
+                  sm:h-44
+                  sm:gap-8
+                  sm:px-5
+
+                  md:h-52
+                  md:gap-16
+                  md:px-6
+                 
+
+                  lg:h-[380px]
+                  lg:flex-col
+                  lg:gap-0
+                  lg:py-6
+                "
+              >
+                {/* Patrón */}
+                <div
+                  aria-hidden="true"
+                  className="
+                    not-found-grid
+
+                    pointer-events-none
+
+                    absolute
+                    inset-0
+                  "
+                />
+
+                {/* =========================
+                    404
+                ========================== */}
+                <span
+                  className="
+                    
+
+                    relative
+                   
+
+                    font-heading
+                    text-6xl
+                    font-bold
+                    leading-none
+                    tracking-[0.04em]
+
+                    text-[var(--color-primary)]
+
+                    sm:text-8xl
+
+                    md:text-9xl
+
+                    lg:text-[9rem]
+                    
+
+                  "
+                >
+                  404
+                </span>
+
+                {/* =========================
+                    ESTADO TÉCNICO
+                ========================== */}
+                <div
+                  className="
+                    relative
+
+                    rounded-lg
+
+                    border
+                    border-[var(--color-border)]
+
+                    px-2.5
+                    py-2
+
+                    text-left
+
+                    sm:px-4
+                    sm:py-3
+
+                    md:px-5
+
+                    lg:mt-5
+                    lg:rounded-xl
+                  "
+                >
+                  <p
+                    className="
+                      font-code
+
+                      text-[9px]
+                      leading-4
+
+                      text-[var(--color-text-muted)]
+
+                      sm:text-xs
+                      sm:leading-5
+
+                      md:leading-6
+
+                      lg:text-sm
+                    "
+                  >
+                    <span
+                      className="
+                        text-[var(--color-primary)]
+                      "
+                    >
+                      status
+                    </span>
+                    : 404
+
+                    <br />
+
+                    <span
+                      className="
+                        text-[var(--color-primary)]
+                      "
+                    >
+                      route
+                    </span>
+                    : not_found
+
+                    <br />
+
+                    <span
+                      className="
+                        text-[var(--color-primary)]
+                      "
+                    >
+                      action
+                    </span>
+                    : return_home
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* =========================
+              MENSAJE
+
+              Móvil: segundo
+              Tablet: segundo
+              Desktop: izquierda
+          ========================== */}
+          <div
+            className="
+              order-2
+
+              mx-auto
+              w-full
+              max-w-2xl
+
+              lg:order-1
+          
+            "
+          >
+            {/* Etiqueta */}
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-2
+
+                font-body
+                text-xs
+                font-semibold
+                uppercase
+                tracking-wider
+
+                text-[var(--color-primary)]
+
+                sm:text-sm
+              "
+            >
+              <SearchX
+                size={17}
+                aria-hidden="true"
+              />
+
+              Ruta no disponible
+            </div>
+
+            {/* =========================
+                TÍTULO
+            ========================== */}
+            <h1
+              id="not-found-title"
+              className="
+                mt-3
+
+                font-heading
+                text-2xl
+                font-bold
+                leading-tight
+                tracking-tight
+
+                text-[var(--color-text)]
+
+                sm:text-3xl
+
+                md:text-4xl
+
+                lg:mt-4
+                lg:text-5xl
+
+                xl:text-6xl
+              "
+            >
+              La página que buscas no está aquí
+            </h1>
+
+            {/* =========================
+                DESCRIPCIÓN
+            ========================== */}
+            <p
+              className="
+                mt-2
+             
+
+                font-body
+                text-xs
+                leading-5
+
+                text-[var(--color-text-muted)]
+
+                sm:mt-3
+                sm:text-sm
+                sm:leading-6
+
+                md:mt-4
+
+                lg:mt-5
+                lg:text-base
+                lg:leading-7
+              "
+            >
+              Es posible que la dirección haya cambiado,
+              que el contenido haya sido movido o que la
+              ruta no exista. Puedes volver y continuar
+              explorando.
+            </p>
+
+            {/* =========================
+                ACCIONES
+            ========================== */}
+            <div
+              className="
+                mt-4
+
+                flex
+                flex-col
+                gap-2
+
+                
+                sm:gap-3
+                
+                md:grid
+    md:grid-cols-2
+    md:gap-3
+
+
+                lg:mt-6
+                
+              "
+            >
+              {/* Inicio */}
+              <Link
+                to="/"
+                className="
+                  inline-flex
+                  min-h-10
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2
+
+                  rounded-lg
+
+                  bg-[var(--color-primary)]
+
+                  px-4
+                  py-2
+
+                  font-body
+                  text-xs
+                  font-semibold
+
+                  text-[#0f1419]
+
+                  transition-all
+                  duration-300
+
+                  hover:-translate-y-0.5
+                  hover:bg-[var(--color-primary-light)]
+
+                  focus-visible:outline-none
+                  focus-visible:ring-2
+                  focus-visible:ring-[var(--color-primary)]
+
+                  sm:w-auto
+                  sm:px-5
+                  sm:text-sm
+                "
+              >
+                <Home
+                  size={17}
+                  aria-hidden="true"
+                />
+
+                Volver al inicio
+              </Link>
+
+              {/* Regresar */}
+              <button
+                type="button"
+                onClick={handleGoBack}
+                className="
+                  inline-flex
+                  min-h-10
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2
+
+                  rounded-lg
+
+                  border
+                  border-[var(--color-border)]
+
+                  bg-[var(--color-surface)]
+
+                  px-4
+                  py-2
+
+                  font-body
+                  text-xs
+                  font-semibold
+
+                  text-[var(--color-text)]
+
+                  transition-all
+                  duration-300
+
+                  hover:-translate-y-0.5
+                  hover:border-[var(--color-primary)]
+                  hover:text-[var(--color-primary)]
+
+                  focus-visible:outline-none
+                  focus-visible:ring-2
+                  focus-visible:ring-[var(--color-primary)]
+
+                  sm:w-auto
+                  sm:px-5
+                  sm:text-sm
+                "
+              >
+                <ArrowLeft
+                  size={17}
+                  aria-hidden="true"
+                />
+
+                Regresar
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+};
+
+export default NotFound;
